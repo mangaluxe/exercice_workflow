@@ -21,7 +21,7 @@ jobs:
       with:
         maven-version: 3.8.2
     - name: Construire et tester avec Maven
-      run: mvn clean install
+      run: mvn -B clean install -Dfile.encoding=UTF-8
     - name: Exécuter l'application Spring Boot
-      run: mvn spring-boot:run
+      run: mvn spring-boot:run -Dfile.encoding=UTF-8
 
