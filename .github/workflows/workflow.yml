@@ -20,12 +20,16 @@ jobs:
       uses: stCarolas/setup-maven@v4.5
       with:
         maven-version: 3.8.2
+    - name: Nettoyer et réencoder le fichier application.properties
+      run: |
+        tr -d '\r' < src/main/resources/application.properties | iconv -f UTF-8 -t UTF-8 -c > src/main/resources/application.properties.clean
+        mv src/main/resources/application.properties.clean src/main/resources/application.properties
     - name: Construire et tester avec Maven
       run: |
         export MAVEN_OPTS="-Dfile.encoding=UTF-8"
-        mvn -B clean install
+        mvn -B clean install -Dproject.build.sourceEncoding=UTF-8 -Dproject.reporting.outputEncoding=UTF-8
     - name: Exécuter l'application Spring Boot
       run: |
         export MAVEN_OPTS="-Dfile.encoding=UTF-8"
-        mvn spring-boot:run -Dfile.encoding=UTF-8
+        mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dfile.encoding=UTF-8"
 
