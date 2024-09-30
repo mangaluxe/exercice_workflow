@@ -1,0 +1,28 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+<div class="container">
+    <main>
+        <h1 th:text="'Résultats de la recherche pour : ' + ${searchTerm}"></h1>
+
+        <div th:if="${etudiants != null && etudiants.size() > 0}">
+            <ul>
+                <li th:each="etudiant : ${etudiants}">
+                    <a th:href="@{'/detail/' + ${etudiant.id}}">
+                        <span th:text="${etudiant.nom}"></span> <span th:text="${etudiant.prenom}"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div th:if="${etudiants == null || etudiants.size() == 0}">
+            <p>Aucun étudiant trouvé.</p>
+        </div>
+
+    </main>
+</div>
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>

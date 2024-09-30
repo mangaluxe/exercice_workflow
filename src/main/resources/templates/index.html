@@ -1,0 +1,33 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+<div class="container">
+    <main>
+        <h1 class="center h1">Exercice Étudiant</h1>
+
+        <p>On souhaite créer une application web qui va nous permettre de gérer des étudiants, c'est-à-dire :</p>
+        <ul>
+            <li>Créer un étudiant (nom, prénom, âge, email).</li>
+            <li>Lister tous les étudiants (nom et prénom).</li>
+            <li>Rechercher un étudiant par son nom.</li>
+            <li>Voir le détail d'un étudiant.</li>
+        </ul>
+
+        <p>Il nous faudra donc plusieurs pages web (au minimum) :</p>
+        <ul>
+            <li>Accueil</li>
+            <li>Inscription</li>
+            <li>Liste des étudiants</li>
+            <li>Détails d'un étudiant</li>
+            <li>Résultat de recherche d'un étudiant</li>
+        </ul>
+
+        <p><a th:href="@{/liste}">Voir tous les étudiants</a></p>
+
+    </main>
+</div>
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>

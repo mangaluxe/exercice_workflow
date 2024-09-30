@@ -1,0 +1,29 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+<div class="container">
+    <main>
+        <h1 class="h1 center">Liste des étudiants</h1>
+
+        <div th:unless="${etudiants.isEmpty()}">
+
+            <div class="grid-box" th:each="e : ${etudiants}">
+                <div><span th:text="${(e.getNom())}"></span> <span th:text="${(e.getPrenom())}"></span></div>
+                <div><a th:href="@{/detail/{id}(id=${e.getId()})}">Voir détails</a></div>
+                <div><a th:href="@{/update(id=${e.getId()})}">Modifier <span class="icon-pencil"></span></a></div>
+                <div><a th:href="@{/delete(id=${e.getId()})}">Supprimer  <span class="icon-cross"></span></a></div>
+            </div>
+
+        </div>
+
+        <div th:if="${etudiants.isEmpty()}">
+            <p>Aucun étudiant trouvé</p>
+        </div>
+
+    </main>
+</div>
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>

@@ -1,0 +1,22 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+<div class="container">
+    <main>
+        <h1 class="center h1">Upload (sans BDD)</h1>
+
+        <form th:action="@{/upload}" enctype="multipart/form-data" method="post">
+
+            <input type="file" name="image">
+
+            <button class="btn">Valider</button>
+
+        </form>
+
+    </main>
+</div>
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>

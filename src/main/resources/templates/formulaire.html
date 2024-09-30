@@ -1,0 +1,59 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+<div class="container">
+    <main>
+        <h1 class="center h1" th:text="${choixAction == 'update'} ? 'Modifier Étudiant' : 'Inscription'"></h1>
+
+<!--        <p>Valeur de l'ID : <span th:text="${etudiant.getId()}"></span></p>-->
+
+        <!-- Formulaire pour ajouter ou mettre à jour -->
+        <form action="#" th:action="@{${choixAction == 'update'} ? @{/update(id=${etudiant.getId()})} : '/ajout'}" th:object="${etudiant}" enctype="multipart/form-data" method="post">
+<!--        <form th:action="@{/ajout}" th:object="${etudiant}" enctype="multipart/form-data" method="post">-->
+
+            <div>
+                <label for="nom">Nom :
+                    <input type="text" th:field="*{nom}" id="nom" class="form-control">
+                </label>
+                <p th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="i warning"></p>
+            </div>
+
+            <div>
+                <label for="prenom">Prénom :
+                    <input type="text" th:field="*{prenom}" id="prenom" class="form-control">
+                </label>
+                <p th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}" class="i warning"></p>
+            </div>
+
+            <div>
+                <label for="age">Âge :
+                    <input type="number" th:field="*{age}" id="age" class="form-control">
+                </label>
+                <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="i warning"></p>
+            </div>
+
+            <div>
+                <label for="email">Email :
+                    <input type="email" th:field="*{email}" id="email" class="form-control">
+                </label>
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="i warning"></p>
+            </div>
+
+            <div>
+                <label for="image">Image :
+                    <!-- Ne pas utiliser th:field ici, car image est un MultipartFile -->
+                    <input type="file" name="imageupload" id="image" class="form-control">
+                </label>
+            </div>
+
+            <button class="btn">Valider</button>
+        </form>
+
+    </main>
+</div>
+
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>

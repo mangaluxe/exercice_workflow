@@ -1,0 +1,36 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+<div class="container">
+    <main>
+        <h1 class="h1 center">Connexion à l'Espace Admin</h1>
+
+        <p>Vous devez vous connecter avant d'ajouter ou de modifier un étudiant !</p>
+
+<!--        <form th:action="@{/login}" th:object="${utilisateur}" method="post">-->
+            <form th:action="@{/login}" method="post">
+
+            <div>
+                <label for="username">Pseudo :
+                    <input type="text" id="username" name="username" class="form-control">
+                </label>
+<!--                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="i warning"></p>-->
+            </div>
+
+            <div>
+                <label for="password">Mot de passe :
+                    <input type="password" id="password" name="password" class="form-control">
+                </label>
+<!--                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="i warning"></p>-->
+            </div>
+
+            <button class="btn">Valider</button>
+        </form>
+
+    </main>
+</div>
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>

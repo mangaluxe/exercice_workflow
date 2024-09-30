@@ -1,0 +1,21 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+<div class="container">
+    <main>
+        <h1 class="h1 center">Espace Admin</h1>
+
+        <p>Bienvenue dans votre espace admin. Vous pouvez :</p>
+
+        <ul class="a-arrow">
+            <li><a th:href="@{/formulaire}">Ajouter un étudiant</a></li>
+            <li><a th:href="@{/liste}">Voir la liste d'étudiants</a></li>
+        </ul>
+
+    </main>
+</div>
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>

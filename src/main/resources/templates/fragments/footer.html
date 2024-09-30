@@ -1,0 +1,42 @@
+
+<!-- Pour pouvoir faire include dans un autre html : -->
+<th:block th:fragment="footerImports">
+
+    <div class="totop"></div>
+
+    <div id="connect-modal" class="modal-connect-overlay">
+        <div class="modal-connect">
+            <div class="modal-connect-header">
+                <span class="close-connect"></span>
+                <div class="h4 mb-0">Connexion</div>
+            </div>
+            <div class="modal-connect-body">
+                <form method="post" th:action="@{/login}">
+                    <label for="login_username">Pseudo :<br>
+                        <input type="text" name="username" id="login_username" placeholder="username">
+                    </label><br>
+                    <label for="login_password">Mot de passe :<br>
+                        <input type="password" name="password" id="login_password" placeholder="Mot de passe">
+                    </label>
+                    <button type="submit" value="Connecter">Connecter</button>
+                </form>
+                <div class="center">
+                    <a href="#">Inscrire</a> -
+                    <a href="#">Mot de passe oublié</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:fragment="footer" class="footer">
+        <div class="copyright">Copyright © 2000-2024 Mangaluxe.</div>
+        <div class="right"><a th:href="@{/login}">Connecter</a> | <a th:href="@{/logout}">Déconnecter</a></div>
+    </footer>
+
+    <!-- Inclusion du fichier JS -->
+    <script th:src="@{/assets/js/script.js}"></script>
+
+</body>
+</html>
+
+</th:block>

@@ -1,0 +1,20 @@
+<!-- Inclusion du header -->
+<div th:replace="~{fragments/header :: headerImports}"></div>
+
+
+<div class="container">
+    <main>
+        <h1 class="center h1">Erreur 404</h1>
+
+        <p>La page <span th:text="${path}"></span> n'existe pas !</p>
+        <p>Statut : <span th:text="${status}"></span></p>
+        <p>Message : <span th:text="${message}"></span></p>
+        <p>Erreur : <span th:text="${error}"></span></p>
+
+        <p class="mt-5"><a th:href="@{/}">Retour à la page d'accueil</a></p>
+    </main>
+</div>
+
+
+<!-- Inclusion du footer -->
+<div th:replace="~{fragments/footer :: footerImports}"></div>
