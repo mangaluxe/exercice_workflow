@@ -12,13 +12,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-java@v4
+    - uses: actions/setup-java@v4 # https://github.com/marketplace/actions/setup-java-jdk
       with:
-        distribution: 'zulu' # See 'Supported distributions' for available options
+        distribution: 'zulu'
         java-version: '17'
     - name: Afficher l'environnement de test
       run: |
-        java -version
-        mvn -version
-        echo $JAVA_HOME
-        echo $PATH
+
+        java -version # Afficher la version de Java installée
+        mvn -version # Afficher la version de Maven installée
+        echo $JAVA_HOME # Afficher le chemin d'installation de Java
+        echo $PATH # Afficher les chemins d'accès du système

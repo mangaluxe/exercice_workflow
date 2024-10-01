@@ -1,0 +1,15 @@
+name: Issue Workflow
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  issue-job:
+    runs-on: ubuntu-latest
+    env:
+      AUTHOR: ${{ github.event.issue.user.login }}
+      ISSUE_NAME: ${{ github.event.issue.title }}
+    steps:
+    - name: Répondre à une nouvelle issue
+      run: echo "Bonjour $AUTHOR, nous avons bien pris en compte votre problème du nom de : $ISSUE_NAME"
