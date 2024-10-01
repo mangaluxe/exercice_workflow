@@ -6,53 +6,57 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Checkout du projet
       - name: Checkout du projet
         uses: actions/checkout@v4
 
+      # Setup JDK 17
       - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin' 
           java-version: '17'
 
+      # Mise en cache du dossier .m2 pour les dépendances Maven
       - name: mise en cache
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
 
+      # Installation des dépendances Maven
       - name: Installation des dépendances
         run: mvn install
 
+      # Build de l'application
       - name: Build de l'application
         run: mvn package
 
-      - name: Upload artefact (build)
-        uses: actions/upload-artifact@v4
-        with:
-          name: build_app
-          path: target/*.jar
-
+      # Test de l'application (continue en cas d'échec)
       - name: Test
         run: mvn test
         continue-on-error: true
 
+      # Affichage des logs de test en cas d'échec
       - name: Afficher les logs de test
         if: failure()
         run: cat target/surefire-reports/*.txt
 
-      - name: Upload du build de l'application (si tests réussis)
-        if: ${{ success() && github.ref == 'refs/heads/main' }}
+      # Faire un upload de l'application uniquement si le push est sur la branche main & si le test a réussi.
+      - name: Upload du build de notre application
+        if: ${{ success() && github.ref == 'refs/heads/main' }} # ${{ success() }} : Si toutes les étapes précédentes ont réussi. ${{ github.ref == 'refs/heads/main' }} : Si le push est effectué sur la branche principale (main).
         uses: actions/upload-artifact@v4
         with:
           name: mon-app
           path: target/*.jar
 
   download:
+    # Téléchargement des artefacts uniquement sur la branche main
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     needs: build
     steps:
+      # Récupération de l'artéfact
       - name: Récupération de l'artéfact
         uses: actions/download-artifact@v4
         with:
