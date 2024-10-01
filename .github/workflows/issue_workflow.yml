@@ -3,22 +3,22 @@
 #     - Créer un workflow qui lors du déclenchement d'une issue envoie un message du type : `Bonjour nom_auteur, nous avons bien pris en compte votre problème du nom de : nom_issue`
 #     - Utilisez des variables d'environnement.
 
-name: Issue Workflow
+name: issue workflow
 
 on:
   issues:
-    types: [opened]
-
+    types: opened
+    
 jobs:
-  commentaire:
+  comment:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
-      - name: Réponse à l'issue
+      - name: comments
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
           ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
           ISSUE_TITLE: ${{ github.event.issue.title }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-        run: |
-          MESSAGE="Bonjour $ISSUE_AUTHOR, nous avons bien pris en compte votre problème du nom de : $ISSUE_TITLE"
-          gh issue comment $ISSUE_NUMBER --body "$MESSAGE"
+        run: gh issue comment $ISSUE_URL -b "Bonjour $ISSUE_AUTHOR, nous avons bien pris en compte pour problème du nom de $ISSUE_TITLE"
