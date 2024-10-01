@@ -22,10 +22,13 @@ jobs:
         distribution: 'zulu'
         java-version: '17'
 
+    - name: Déterminer le chemin du référentiel Maven
+      run: echo "MAVEN_REPO=$(mvn help:evaluate -Dexpression=settings.localRepository -q -DforceStdout)" >> $GITHUB_ENV
+
     - name: Mise en cache des dépendances Maven
       uses: actions/cache@v3.3.2
       with:
-        path: ~/.m2/repository
+        path: ${{ env.MAVEN_REPO }}
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
