@@ -1,3 +1,8 @@
+# - Ajouter 2 workflow
+#     - Créer un workflow qui affiche un message en echo lors d'un fork de votre projet.
+#     - Créer un workflow qui lors du déclenchement d'une issue envoie un message du type : `Bonjour nom_auteur, nous avons bien pris en compte votre problème du nom de : nom_issue`
+#     - Utilisez des variables d'environnement.
+
 name: Fork Workflow
 
 on:

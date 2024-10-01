@@ -1,3 +1,8 @@
+# - Ajouter 2 workflow
+#     - Créer un workflow qui affiche un message en echo lors d'un fork de votre projet.
+#     - Créer un workflow qui lors du déclenchement d'une issue envoie un message du type : `Bonjour nom_auteur, nous avons bien pris en compte votre problème du nom de : nom_issue`
+#     - Utilisez des variables d'environnement.
+
 name: Issue Workflow
 
 on:
@@ -8,12 +13,12 @@ jobs:
   issue-job:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout du code
-      uses: actions/checkout@v4
     - name: Répondre à une nouvelle issue
       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         AUTHOR: ${{ github.event.issue.user.login }}
         ISSUE_NAME: ${{ github.event.issue.title }}
       run: |
-        echo "Bonjour $AUTHOR, nous avons bien pris en compte votre problème du nom de : $ISSUE_NAME"
-        echo "Nous allons examiner votre problème et y répondre dès que possible."
+        message="Bonjour $AUTHOR, nous avons bien pris en compte votre problème du nom de : $ISSUE_NAME"
+        gh issue comment ${{ github.event.issue.number }} --body "$message"
+      shell: bash
