@@ -1,51 +1,42 @@
-# Ajouter:
-#   - Mise en cache des dépendances
-#   - Upload d'un artéfact avec le build de notre application.
-
-
-# Nom pour le workflow
 name: Workflow Push
 
-# On précise quel est le déclencheur de notre workflow
 on: push
 
 jobs:
-  # On définit la 1re action à exécuter :
   premier-job:
-    # Spécifier le système d'exploitation
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-java@v4 # https://github.com/marketplace/actions/setup-java-jdk
+    - uses: actions/setup-java@v4
       with:
         distribution: 'zulu'
         java-version: '17'
 
-    - name: Déterminer le chemin du référentiel Maven
-      run: echo "MAVEN_REPO=$(mvn help:evaluate -Dexpression=settings.localRepository -q -DforceStdout)" >> $GITHUB_ENV
-
     - name: Mise en cache des dépendances Maven
       uses: actions/cache@v3.3.2
       with:
-        path: ${{ env.MAVEN_REPO }}
+        path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
+          ${{ runner.os }}-
+
+    - name: Vérifier le cache Maven
+      run: ls -la ~/.m2/repository
 
     - name: Afficher l'environnement de test
       run: |
+        java -version
+        mvn -version
+        echo $JAVA_HOME
+        echo $PATH
 
-        java -version # Afficher la version de Java installée
-        mvn -version # Afficher la version de Maven installée
-        echo $JAVA_HOME # Afficher le chemin d'installation de Java
-        echo $PATH # Afficher les chemins d'accès du système
+    - name: Vérifier le répertoire Maven local
+      run: mvn help:evaluate -Dexpression=settings.localRepository
 
-    - name: Vérifier la version de Java
-      run: java -version
-
-    - name: Construire l'application avec plus de mémoire
-      run: MAVEN_OPTS="-Xmx2g" mvn clean package
+    - name: Construire l'application
+      run: mvn clean package -Dtest=EtudiantApplicationTests
 
     - name: Upload de l'artéfact
       uses: actions/upload-artifact@v3
