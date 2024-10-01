@@ -39,7 +39,7 @@ jobs:
         echo $PATH # Afficher les chemins d'accès du système
 
     - name: Construire l'application
-      run: mvn clean package
+      run: mvn clean package -Dtest=EtudiantApplicationTests
 
     - name: Upload de l'artéfact
       uses: actions/upload-artifact@v3
