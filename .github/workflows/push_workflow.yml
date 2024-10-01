@@ -31,7 +31,7 @@ jobs:
           name: build_app
           path: target/*.jar
 
-      - name: test
+      - name: Test
         run: npm run test
         continue-on-error: true
 
@@ -48,9 +48,9 @@ jobs:
   download:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
-    needs: mon_job
+    needs: build
     steps:
       - name: Récupération de l'artéfact
         uses: actions/download-artifact@v4
         with:
-          name: mon_app
+          name: mon-app
