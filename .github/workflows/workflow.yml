@@ -23,7 +23,7 @@ jobs:
         java-version: '17'
 
     - name: Mise en cache des dépendances Maven
-      uses: actions/cache@v3
+      uses: actions/cache@v3.3.2
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
