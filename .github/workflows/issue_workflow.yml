@@ -7,18 +7,15 @@ name: Issue Workflow
 
 on:
   issues:
-    types: [opened]
+    types: opened
 
 jobs:
-  issue-job:
+  commentaire:
     runs-on: ubuntu-latest
     steps:
-    - name: Répondre à une nouvelle issue
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        AUTHOR: ${{ github.event.issue.user.login }}
-        ISSUE_NAME: ${{ github.event.issue.title }}
-      run: |
-        message="Bonjour $AUTHOR, nous avons bien pris en compte votre problème du nom de : $ISSUE_NAME"
-        gh issue comment ${{ github.event.issue.number }} --body "$message"
-      shell: bash
+      - name: Réponse à l'issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_URL: ${{ github.event.issue.url }}
+        run: gh issue comment $ISSUE_URL --body "Merci pour votre message"
+      
