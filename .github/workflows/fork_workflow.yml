@@ -14,5 +14,5 @@ jobs:
     steps:
     - name: Afficher un message lors d'un fork
       run: |
-        echo "Le projet a été forké !"
+        echo "Le projet a été forké par ${{ github.actor }} !"
         exit 0
