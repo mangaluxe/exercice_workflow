@@ -7,9 +7,13 @@ on:
 jobs:
   issue-job:
     runs-on: ubuntu-latest
-    env:
-      AUTHOR: ${{ github.event.issue.user.login }}
-      ISSUE_NAME: ${{ github.event.issue.title }}
     steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
     - name: Répondre à une nouvelle issue
-      run: echo "Bonjour $AUTHOR, nous avons bien pris en compte votre problème du nom de : $ISSUE_NAME"
+      env:
+        AUTHOR: ${{ github.event.issue.user.login }}
+        ISSUE_NAME: ${{ github.event.issue.title }}
+      run: |
+        echo "Bonjour $AUTHOR, nous avons bien pris en compte votre problème du nom de : $ISSUE_NAME"
+        echo "Nous allons examiner votre problème et y répondre dès que possible."

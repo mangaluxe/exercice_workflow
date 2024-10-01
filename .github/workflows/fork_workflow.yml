@@ -8,4 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Afficher un message lors d'un fork
-      run: echo "Le projet a été forké !"
+      run: |
+        echo "Le projet a été forké !"
+        exit 0
