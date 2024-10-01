@@ -32,9 +32,9 @@ jobs:
       - name: Build de l'application
         run: mvn package
 
-      # Test de l'application (continue en cas d'échec)
-      - name: Test
-        run: mvn test
+      # Test de l'application avec logs en mode debug
+      - name: Test en mode debug
+        run: mvn test -X
         continue-on-error: true
 
       # Affichage des logs de test en cas d'échec
