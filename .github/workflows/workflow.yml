@@ -25,13 +25,13 @@ jobs:
     - name: Déterminer le chemin du référentiel Maven
       run: echo "MAVEN_REPO=$(mvn help:evaluate -Dexpression=settings.localRepository -q -DforceStdout)" >> $GITHUB_ENV
 
-    # - name: Mise en cache des dépendances Maven
-    #   uses: actions/cache@v3.3.2
-    #   with:
-    #     path: ${{ env.MAVEN_REPO }}
-    #     key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-maven-
+    - name: Mise en cache des dépendances Maven
+      uses: actions/cache@v3.3.2
+      with:
+        path: ${{ env.MAVEN_REPO }}
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
 
     - name: Afficher l'environnement de test
       run: |
@@ -41,8 +41,11 @@ jobs:
         echo $JAVA_HOME # Afficher le chemin d'installation de Java
         echo $PATH # Afficher les chemins d'accès du système
 
-    - name: Construire l'application
-      run: mvn clean package -Dtest=EtudiantApplicationTests
+    - name: Vérifier la version de Java
+      run: java -version
+
+    - name: Construire l'application avec plus de mémoire
+      run: MAVEN_OPTS="-Xmx2g" mvn clean package
 
     - name: Upload de l'artéfact
       uses: actions/upload-artifact@v3
