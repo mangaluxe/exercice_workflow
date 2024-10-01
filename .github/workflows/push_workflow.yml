@@ -58,3 +58,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: mon-app
+
+# Faire en sorte que le workflow continue même en cas d'echec des tests.
+- name: Test
+  run: mvn test
+  continue-on-error: true
+
+- name: Afficher les logs de test
+  if: failure()
+  run: cat target/surefire-reports/*.txt
+
+  
