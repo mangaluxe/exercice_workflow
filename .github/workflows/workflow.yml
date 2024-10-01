@@ -1,3 +1,8 @@
+# Ajouter:
+#   - Mise en cache des dépendances
+#   - Upload d'un artéfact avec le build de notre application.
+
+
 # Nom pour le workflow
 name: Workflow Push
 
@@ -16,6 +21,15 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: '17'
+
+    - name: Mise en cache des dépendances Maven
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
     - name: Afficher l'environnement de test
       run: |
 
@@ -23,3 +37,12 @@ jobs:
         mvn -version # Afficher la version de Maven installée
         echo $JAVA_HOME # Afficher le chemin d'installation de Java
         echo $PATH # Afficher les chemins d'accès du système
+
+    - name: Construire l'application
+      run: mvn clean package
+
+    - name: Upload de l'artéfact
+      uses: actions/upload-artifact@v3
+      with:
+        name: mon-application
+        path: target/*.jar
