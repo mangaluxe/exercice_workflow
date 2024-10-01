@@ -32,8 +32,12 @@ jobs:
           path: target/*.jar
 
       - name: Test
-        run: npm run test
+        run: mvn test
         continue-on-error: true
+
+      - name: Afficher les logs de test
+        if: failure()
+        run: cat target/surefire-reports/*.txt
 
       # Faire un upload de l'application uniquement si le push est sur la branche main & si le test a réussi.
 
