@@ -1,0 +1,20 @@
+name: docker
+on: push  
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    env:
+      USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+    steps:
+      - name: login dockerhub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.USERNAME }}
+          password: ${{ env.PASSWORD }}
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: build docker image
+        run: docker build -t $USERNAME/exercice_workflow .
+      - name: push dockerhub
+        run: docker push $USERNAME/exercice_workflow
